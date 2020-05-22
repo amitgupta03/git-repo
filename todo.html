@@ -1,0 +1,64 @@
+<html>
+	<head>
+		<title>TODO-List</title>
+		<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+		<style>
+			*{
+				 margin:10px;
+				 padding: 12px;
+			}
+			input{
+				width:70%;
+				font-size: 20px;
+			}
+			h1 {
+			  color: orange;
+			}
+			li{
+				list-style-type: none;
+				background-color:#EFEFEF;
+				border-left:4px solid orange;	
+				width:70%;
+				overflow: auto;
+			}
+			.btn{
+				float:right;
+				display: block;
+				padding:0;
+				margin:0;
+			}
+	</style>
+	</head>
+	<body>
+		<div id="myApp"  >
+			<h1>Todo List</h1>
+			<input type="text" v-model="inputdata" placeholder="Enter here...">
+			<button @click="addData()">ADD</button>
+			<ul>
+				<li v-for="(x , index) in arr">{{x}}<p class="btn" @click="removeData(index)">x</p></li>
+			</ul>
+		</div>
+		<script>
+			var vm =new Vue({
+				el:'#myApp',
+				data:{
+					title:'TODO List',
+					inputdata:'',
+					arr:[]
+				},
+				methods:{
+					addData:function(){
+						if (this.inputdata){
+							this.arr.push(this.inputdata);
+							this.inputdata='';
+							console.log(this.arr);
+						}else alert("please Enter data");
+					},
+					removeData:function(indexVal){
+							this.arr.splice(indexVal,1);
+					}
+				}
+			})
+		</script>
+	</body>
+</html>
