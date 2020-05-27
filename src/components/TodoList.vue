@@ -14,8 +14,9 @@
              <v-checkbox  color="primary" v-model="todo.completed"></v-checkbox>
              <div v-if="!todo.editing" @dblclick="editTodo(todo)"  :class="{ completed : todo.completed }">{{todo.title}}</div>
              <v-text-field v-else  v-model="todo.title" @keyup.enter="doneEdit(todo)"  @blur="doneEdit(todo)" ></v-text-field>
+         
           <v-list-item-icon>
-            <v-icon @click="removeTodo(index)">x</v-icon>
+            <v-icon @click="removeTodo(index)">x</v-icon> 
           </v-list-item-icon> 
         </v-list-item>
       </v-list>
