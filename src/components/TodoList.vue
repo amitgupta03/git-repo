@@ -9,16 +9,17 @@
      <v-text-field label="Enter Todo Item" filled v-model="newTodo" @keyup.enter="addTodo"></v-text-field>
   
       <v-list >
-        <v-list-item  v-for="(todo,index) in todosFiltered"  :key="todo.id" >
+        <todo-item  v-for="(todo,index) in todosFiltered"  :key="todo.id" :todo="todo" :index="index" 
+        @removedTodo="removeTodo" @finishedEdit="finishedEdit" >
             
-             <v-checkbox  color="primary" v-model="todo.completed"></v-checkbox>
+             <!-- <v-checkbox  color="primary" v-model="todo.completed"></v-checkbox>
              <div v-if="!todo.editing" @dblclick="editTodo(todo)"  :class="{ completed : todo.completed }">{{todo.title}}</div>
              <v-text-field v-else  v-model="todo.title" @keyup.enter="doneEdit(todo)"  @blur="doneEdit(todo)" ></v-text-field>
          
           <v-list-item-icon>
             <v-icon @click="removeTodo(index)">x</v-icon> 
-          </v-list-item-icon> 
-        </v-list-item>
+          </v-list-item-icon>  -->
+        </todo-item>
       </v-list>
       <v-divider></v-divider>
         <v-footer>
@@ -37,9 +38,13 @@
 </template>
 <script>
 
+import TodoItem from './TodoItem'
+
   export default {
     name: 'todo-list',
-
+    components :{
+      TodoItem
+    },
     data () {
         return{
             newTodo: '',
@@ -93,6 +98,7 @@
         removeTodo(index) {
              this.todos.splice(index, 1)
          },
+         
         editTodo(todo) {
             this.beforeEditCache = todo.title
             todo.editing = true
@@ -102,6 +108,9 @@
                 todo.title = this.beforeEditCache
             }
             todo.editing = false
+        },
+        finishedEdit(data){
+          this.todos.splice(data.index,1,data.todo)
         }
         
     }
