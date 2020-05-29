@@ -6,12 +6,13 @@
         <v-spacer></v-spacer>
       </v-toolbar>
     <v-spacer></v-spacer>
-     <v-text-field label="Enter Todo Item" filled v-model="newTodo" @keyup.enter="addTodo"></v-text-field>
-  
+     <!-- <v-text-field label="Enter Todo Item" filled v-model="newTodo" @keyup.enter="addTodo"></v-text-field>
+   -->
+   <input-todo v-model="newTodo" @addedTodo="addTodo"></input-todo>
+   <!-- {{newTodo}}++ -->
       <v-list >
         <todo-item  v-for="(todo,index) in todosFiltered"  :key="todo.id" :todo="todo" :index="index" 
         @removedTodo="removeTodo" @finishedEdit="finishedEdit" >
-            
              <!-- <v-checkbox  color="primary" v-model="todo.completed"></v-checkbox>
              <div v-if="!todo.editing" @dblclick="editTodo(todo)"  :class="{ completed : todo.completed }">{{todo.title}}</div>
              <v-text-field v-else  v-model="todo.title" @keyup.enter="doneEdit(todo)"  @blur="doneEdit(todo)" ></v-text-field>
@@ -27,7 +28,7 @@
      <div style="float:left">{{ remaining }} items left</div>
   </v-footer>
   <div>
-      <v-btn small   @click="filter='all'">All</v-btn>
+      <v-btn small  @click="filter='all'">All</v-btn>
       <v-btn small  @click="filter='active'">Active</v-btn>
       <v-btn small  @click="filter='completed'">completed</v-btn>
 
@@ -39,18 +40,20 @@
 <script>
 
 import TodoItem from './TodoItem'
+import InputTodo  from './InputTodo'
 
   export default {
     name: 'todo-list',
     components :{
-      TodoItem
+      TodoItem,
+      InputTodo
     },
     data () {
         return{
             newTodo: '',
             idForTodo: 3,
             beforeEditCache: '',
-             filter: 'all',
+            filter: 'all',
             todos: [
                 {
                 'id': 1,
